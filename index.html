@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, min-width=1024px, min-height=768px, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lottery.js"></script>
+    <title>Lottery System</title>
+
+  </head>
+
+  <body>
+
+    <!-- TITLE-->
+    <div class="title-wrap">
+      <h1 class="title-txt">抽奖</h1>
+    </div>
+
+    <!-- PLATE -->
+    <div class="plate-wrap">
+      <div class="plate-box">
+        <div class="led-line">
+        </div>
+        <div class="prize-wrap">
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+          <div class="prize-box"></div>
+
+          <div class="lot-botton"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="auth">
+        <ul>
+          <li>奖品以实物为准</li>
+          <li>本活动最终解释权归沉静所有</li>
+        </ul>
+      </div>
+    </div>
+
+    <p id="test">empty</p>
+    <input id="testButton" type="button" value="lottery"></input>
+
+
+    <script>
+      <!-- MAIN ENTRY -->
+      var LOTSYS = new Lottery();
+      LOTSYS.init();
+
+      $(document).ready(function() {
+
+        $("#testButton").click(function() {
+          $("#test").html(LOTSYS.lot());
+        });
+      });
+    </script>
+  </body>
+</html>
