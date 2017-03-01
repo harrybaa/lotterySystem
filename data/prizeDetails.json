@@ -1,0 +1,32 @@
+{
+	"prizeDetails": {
+		"prize1": {
+      "name": "空调",
+      "rank": "特等奖",
+      "rate": "SSR",
+      "rate_pic": "#",
+      "pic": ""
+    },
+		"prize2": {
+      "name": "冰箱",
+      "rank": "一等奖",
+      "rate": "SR",
+      "rate_pic": "#",
+      "pic": ""
+    },
+		"prize3": {
+      "name": "洗衣机",
+      "rank": "二等奖",
+      "rate": "R",
+      "rate_pic": "#",
+      "pic": ""
+    },
+    "default": {
+      "name": "谢谢参与",
+      "rank": "安慰奖",
+      "rate": "N",
+      "rate_pic": "#",
+      "pic": ""
+    }
+	}
+}
