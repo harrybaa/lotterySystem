@@ -15,7 +15,7 @@ function Lottery() {
   }
 
   this.getPrize = function() {
-    return this.prize
+    return this.prize;
   }
 
   this.lot = function() {

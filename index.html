@@ -1,10 +1,11 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, min-width=1024px, min-height=768px, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="lottery.js"></script>
+    <script type="text/javascript" src="blink.js"></script>
     <title>Lottery System</title>
 
   </head>
@@ -22,17 +23,19 @@
         <div class="led-line">
         </div>
         <div class="prize-wrap">
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
-          <div class="prize-box"></div>
+          <div class="prize-box" id="prize_box_1"></div>
+          <div class="prize-box" id="prize_box_2"></div>
+          <div class="prize-box" id="prize_box_3"></div>
+          <div class="prize-box" id="prize_box_4"></div>
+          <div class="prize-box" id="prize_box_5"></div>
+          <div class="prize-box" id="prize_box_6"></div>
+          <div class="prize-box" id="prize_box_7"></div>
+          <div class="prize-box" id="prize_box_8"></div>
+          <div class="prize-box" id="prize_box_9"></div>
 
-          <div class="lot-botton"></div>
+          <div class="lot-botton" id="lot_btn"></div>
+
+          <div class="clear-both"></div>
         </div>
       </div>
     </div>
@@ -45,22 +48,65 @@
           <li>本活动最终解释权归沉静所有</li>
         </ul>
       </div>
+
     </div>
 
-    <p id="test">empty</p>
-    <input id="testButton" type="button" value="lottery"></input>
+    <div class="foot-dec foot-dec-left">
 
+    </div>
+
+    <div class="foot-dec foot-dec-right">
+
+    </div>
+
+    <!-- RESULT WINDOW -->
+    <div class="result-wrap">
+      <div class="result-box">
+        <h1 class="prize-rank" id="prize_rank">特等奖</h1>
+        <h3 class="prize-rate" id="prize_rate">SSR</h3>
+        <div class="img-wrap prize-pic-wrap">
+          <img id="prize_pic" src="" alt="">
+        </div>
+        <p class="prize-name" id="prize_name">海尔电冰箱</p>
+        <p class="prize-tip">请向工作人员展示此页面并索要奖品。</p>
+        <div class="close-btn img-wrap" id="close_btn">
+          <img src="" alt="">
+        </div>
+      </div>
+    </div>
 
     <script>
       <!-- MAIN ENTRY -->
-      var LOTSYS = new Lottery();
-      LOTSYS.init();
-
       $(document).ready(function() {
+        var LOTSYS = new Lottery();
+        var BLKSYS = new Blink();
+        var prize;
 
-        $("#testButton").click(function() {
-          $("#test").html(LOTSYS.lot());
+        var showResult = function(prize) {
+          console.log(prize);
+          clearState();
+        }
+
+        var clearState = function() {
+          BLKSYS.clearBlink();
+          $("#lot_btn").removeClass("hide");
+          BLKSYS.startBlink();
+        }
+
+        LOTSYS.init();
+        BLKSYS.startBlink();
+
+        // register actions
+        $("#lot_btn").click(function() {
+          BLKSYS.clearBlink();
+          $("#lot_btn").addClass("hide");
+          BLKSYS.fastBlink();
+          prize = LOTSYS.lot();
+
+          window.setTimeout(function(){showResult(prize)}, 1800);
         });
+
+
       });
     </script>
   </body>
