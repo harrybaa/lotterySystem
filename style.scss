@@ -73,16 +73,61 @@ body{
 }
 
 .result-wrap{
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: 999;
-  background: cmyk(0%, 0%, 0%, 60%);
+  background: rgba(0, 0, 0, 0.6);
 
   .result-box{
     width: 768px;
     height: 512px;
     margin: 128px auto;
+    text-align: center;
+    background: #fff;
+
+    .prize-rank{
+      margin: 10px auto;
+      width: 200px;
+      height: 80px;
+      font-size: 46px;
+      border: $test-border;
+    }
+
+    .prize-rate{
+      float: right;
+      margin: -10px 20px;
+      width: 100px;
+      height: 50px;
+      font-size: 26px;
+      border: $test-border;
+    }
+
+    .prize-pic-wrap{
+      margin: 10px auto;
+      width: 384px;
+      height: 288px;
+      border: $test-border;
+    }
+
+    .prize-name{
+      font-size: 26px;
+    }
+
+    .prize-tip{
+      font-size: 14px;
+    }
+
+    .close-btn{
+      float: right;
+      margin-top: -515px;
+      margin-right: -10px;
+      width: 20px;
+      height: 20px;
+      background: red;
+    }
   }
 }
 

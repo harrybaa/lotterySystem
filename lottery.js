@@ -1,9 +1,9 @@
 function Lottery() {
   this.prize = {};
   this.fakePrize = {
-    "p1": 1,
-    "p2": 2,
-    "p3": 3
+    "冰箱": 1,
+    "空调": 2,
+    "洗衣机": 3
   }
 
   this.init = function() {

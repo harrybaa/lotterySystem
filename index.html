@@ -60,7 +60,7 @@
     </div>
 
     <!-- RESULT WINDOW -->
-    <div class="result-wrap">
+    <div class="result-wrap hide">
       <div class="result-box">
         <h1 class="prize-rank" id="prize_rank">特等奖</h1>
         <h3 class="prize-rate" id="prize_rate">SSR</h3>
@@ -70,7 +70,7 @@
         <p class="prize-name" id="prize_name">海尔电冰箱</p>
         <p class="prize-tip">请向工作人员展示此页面并索要奖品。</p>
         <div class="close-btn img-wrap" id="close_btn">
-          <img src="" alt="">
+          X
         </div>
       </div>
     </div>
@@ -84,6 +84,8 @@
 
         var showResult = function(prize) {
           console.log(prize);
+          $(".result-wrap").removeClass("hide");
+          $(".result-wrap #prize_name").html(prize);
           clearState();
         }
 
@@ -106,6 +108,9 @@
           window.setTimeout(function(){showResult(prize)}, 1800);
         });
 
+        $("#close_btn").click(function() {
+          $(".result-wrap").addClass("hide");
+        })
 
       });
     </script>
