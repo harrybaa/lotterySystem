@@ -1,22 +1,56 @@
 function Lottery() {
-  this.prize = {};
-  this.fakePrize = {
-    "冰箱": 1,
-    "空调": 2,
-    "洗衣机": 3
-  }
+  this.prizeDetails = {};
+  this.prizeQuantity = {};
+  this.fakePrizeDetails = {
+    "prize1": {
+      "name": "空调",
+      "rank": "特等奖",
+      "rate": "SSR",
+      "rate_pic": "#",
+      "pic": ""
+    },
+		"prize2": {
+      "name": "冰箱",
+      "rank": "一等奖",
+      "rate": "SR",
+      "rate_pic": "#",
+      "pic": ""
+    },
+		"prize3": {
+      "name": "洗衣机",
+      "rank": "二等奖",
+      "rate": "R",
+      "rate_pic": "#",
+      "pic": ""
+    }
+  };
+  this.fakePrizeQuatity = {
+    "prize1": 1,
+    "prize2": 2,
+    "prize3": 3
+  };
 
   this.init = function() {
-    this.prize = this.fakePrize;
-  }
+    // initial;
+  };
 
-  this.setPrize = function(name, size) {
-    this.prize[name] = size;
-  }
+  this.setPrizeDetails = function(prizeDetails) {
+    this.prizeDetails = prizeDetails;
+  };
 
-  this.getPrize = function() {
-    return this.prize;
-  }
+  this.setFakePrizeDetails = function() {
+    if(this.prizeDetails == null)
+      this.prizeDetails = this.fakePrizeDetails;
+  };
+
+  this.setPrizeQuantity = function(prizeQuantity) {
+    this.prizeQuantity = prizeQuantity;
+  };
+
+  this.setFakePrizeQuantity = function() {
+    if(this.prizeQuantity == null)
+      this.prizeQuantity = this.fakePrizeQuatity;
+  };
 
   this.lot = function() {
     var total,
@@ -32,22 +66,23 @@ function Lottery() {
 
     randomIdx = total * Math.random();
 
-    for(var name in this.prize) {
-      if(randomIdx < this.prize[name]) {
-        this.prize[name]--;
-        return name;
+    for(var name in this.prizeQuantity) {
+      if(randomIdx < this.prizeQuantity[name]) {
+        this.prizeQuantity[name]--;
+        return this.prizeDetails[name];
       } else
-        randomIdx -= this.prize[name];
+        randomIdx -= this.prizeQuantity[name];
     }
 
     return null;
-  }
+  };
 
   this.calculateTotalSize = function() {
     var totalSize = 0;
-    for(var name in this.prize) {
-      totalSize += this.prize[name];
+    for(var name in this.prizeQuantity) {
+      totalSize += this.prizeQuantity[name];
     }
     return totalSize;
-  }
+  };
+
 }

@@ -62,12 +62,14 @@
     <!-- RESULT WINDOW -->
     <div class="result-wrap hide">
       <div class="result-box">
-        <h1 class="prize-rank" id="prize_rank">特等奖</h1>
-        <h3 class="prize-rate" id="prize_rate">SSR</h3>
+        <h1 class="prize-rank" id="prize_rank">null</h1>
+        <div class="prize-rate" id="prize_rate">
+          <img src="" alt="">
+        </div>
         <div class="img-wrap prize-pic-wrap">
           <img id="prize_pic" src="" alt="">
         </div>
-        <p class="prize-name" id="prize_name">海尔电冰箱</p>
+        <p class="prize-name" id="prize_name">null</p>
         <p class="prize-tip">请向工作人员展示此页面并索要奖品。</p>
         <div class="close-btn img-wrap" id="close_btn">
           X
@@ -76,34 +78,107 @@
     </div>
 
     <script>
+
+      var LOTSYS = new Lottery();
+      var BLKSYS = new Blink();
+      var prize;
+
+      var showResult = function(prize) {
+        console.log(prize);
+        $(".result-wrap").removeClass("hide");
+        $(".result-wrap #prize_rank").html(prize.rank);
+        $(".result-wrap #prize_rate img").attr("src", prize.rate_pic);
+        $(".result-wrap #prize_name").html(prize.name);
+        $(".result-wrap #prize_pic").html(prize.pic);
+        clearState();
+      }
+
+      var clearState = function() {
+        BLKSYS.clearBlink();
+        $("#lot_btn").removeClass("hide");
+        BLKSYS.startBlink();
+      }
+
+      var catchPrizeDetailData = function(urlPrefix) {
+        var url = urlPrefix + "prizeDetails.json";
+
+        $.ajax({
+          url: url,
+          dataType: 'json',
+          success: function(res){
+            console.log('New Json data loaded.');
+            LOTSYS.setPrizeDetails(res.prizeDetails);
+          },
+          error: function(){
+            console.log('Faild to load the data.');
+            LOTSYS.setFakePrizeDetails();
+          }
+        });
+      };
+
+      var catchPrizeQuantityData = function(urlPrefix) {
+        var url = urlPrefix + "prizeQuantity.json";
+
+        $.ajax({
+          url: url,
+          dataType: 'json',
+          success: function(res){
+            console.log('New Json data loaded.');
+            LOTSYS.setPrizeQuantity(res.prizeQuantity);
+          },
+          error: function(){
+            console.log('Faild to load the data.');
+            LOTSYS.setFakePrizeQuantity();
+          }
+        });
+      }
+
+      var setNewPrizeQuantityData = function(newQuantityData, urlPrefix) {
+        var url = urlPrefix + "prizeQuantity.json",
+            data;
+
+        newQuantityData["_method"] = "PUT";
+        data = JSON.stringify(newQuantityData);
+
+        $.ajax({
+          url: url,
+          dataType: 'json',
+          data: data,
+          type: "PUT",
+          success: function(res){
+            console.log('New Json data put success.');
+          },
+          error: function(){
+            console.log('Faild to put data to server.');
+          }
+        });
+      }
+
       <!-- MAIN ENTRY -->
       $(document).ready(function() {
-        var LOTSYS = new Lottery();
-        var BLKSYS = new Blink();
-        var prize;
-
-        var showResult = function(prize) {
-          console.log(prize);
-          $(".result-wrap").removeClass("hide");
-          $(".result-wrap #prize_name").html(prize);
-          clearState();
-        }
-
-        var clearState = function() {
-          BLKSYS.clearBlink();
-          $("#lot_btn").removeClass("hide");
-          BLKSYS.startBlink();
-        }
+        var urlPrefix;
 
         LOTSYS.init();
         BLKSYS.startBlink();
+
+        // load data
+        if(location.hostname == "localhost")
+          urlPrefix = location.href + "data/";
+        else
+          urlPrefix = "http://www.harrybaa.com/lab/lotterySystem/data/";
+
+        catchPrizeDetailData(urlPrefix);
+        catchPrizeQuantityData(urlPrefix);
 
         // register actions
         $("#lot_btn").click(function() {
           BLKSYS.clearBlink();
           $("#lot_btn").addClass("hide");
           BLKSYS.fastBlink();
+          // try to catch newest data
+          catchPrizeQuantityData(urlPrefix);
           prize = LOTSYS.lot();
+          setNewPrizeQuantityData(LOTSYS.prizeQuantity, urlPrefix);
 
           window.setTimeout(function(){showResult(prize)}, 1800);
         });
