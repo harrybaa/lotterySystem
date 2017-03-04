@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <title>SETTING</title>
+  </head>
+  <body>
+    <ul>
+      <li><i class="prize-name" id="prize_name1"></i><input type="text" id="prize_q1" value=""></li>
+      <li><i class="prize-name" id="prize_name2"></i><input type="text" id="prize_q2" value=""></li>
+      <li><i class="prize-name" id="prize_name3"></i><input type="text" id="prize_q3" value=""></li>
+      <li><i class="prize-name" id="prize_name4"></i><input type="text" id="prize_q4" value=""></li>
+    </ul>
+
+    <input type="text" name="" value="submit" id="submit_btn">
+
+    <script type="text/javascript">
+      var prizeQuantity = {};
+      var LSMSYS = new localStorageManip();
+
+      var showQuantity = function() {
+        var prizeQuantity;
+
+        prizeQuantity = getLocalStorage();
+      }
+
+      var getLocalStorage = function() {
+        prizeQuantity = LSMSYS.
+      }
+
+      $(document).ready(function() {
+        showQuantity();
+      });
+    </script>
+  </body>
+</html>

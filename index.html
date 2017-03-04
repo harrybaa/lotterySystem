@@ -132,6 +132,28 @@
           }
         });
       }
+
+      var setNewPrizeQuantityData = function(newQuantityData, urlPrefix) {
+        var url = urlPrefix + "prizeQuantity.json",
+            data;
+
+        newQuantityData["_method"] = "PUT";
+        data = JSON.stringify(newQuantityData);
+
+        $.ajax({
+          url: url,
+          dataType: 'json',
+          data: data,
+          type: "PUT",
+          success: function(res){
+            console.log('New Json data put success.');
+          },
+          error: function(){
+            console.log('Faild to put data to server.');
+          }
+        });
+      }
+
       <!-- MAIN ENTRY -->
       $(document).ready(function() {
         var urlPrefix;
@@ -141,7 +163,7 @@
 
         // load data
         if(location.hostname == "localhost")
-          urlPrefix = location.href + "/data/";
+          urlPrefix = location.href + "data/";
         else
           urlPrefix = "http://www.harrybaa.com/lab/lotterySystem/data/";
 
@@ -153,7 +175,10 @@
           BLKSYS.clearBlink();
           $("#lot_btn").addClass("hide");
           BLKSYS.fastBlink();
+          // try to catch newest data
+          catchPrizeQuantityData(urlPrefix);
           prize = LOTSYS.lot();
+          setNewPrizeQuantityData(LOTSYS.prizeQuantity, urlPrefix);
 
           window.setTimeout(function(){showResult(prize)}, 1800);
         });

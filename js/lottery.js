@@ -39,7 +39,8 @@ function Lottery() {
   };
 
   this.setFakePrizeDetails = function() {
-    this.prizeDetails = this.fakePrizeDetails;
+    if(this.prizeDetails == null)
+      this.prizeDetails = this.fakePrizeDetails;
   };
 
   this.setPrizeQuantity = function(prizeQuantity) {
@@ -47,7 +48,8 @@ function Lottery() {
   };
 
   this.setFakePrizeQuantity = function() {
-    this.prizeQuantity = this.fakePrizeQuatity;
+    if(this.prizeQuantity == null)
+      this.prizeQuantity = this.fakePrizeQuatity;
   };
 
   this.lot = function() {
@@ -67,7 +69,6 @@ function Lottery() {
     for(var name in this.prizeQuantity) {
       if(randomIdx < this.prizeQuantity[name]) {
         this.prizeQuantity[name]--;
-
         return this.prizeDetails[name];
       } else
         randomIdx -= this.prizeQuantity[name];
@@ -84,7 +85,4 @@ function Lottery() {
     return totalSize;
   };
 
-  this.setNewPrizeQuantity(name) {
-
-  }
 }
