@@ -1,6 +1,6 @@
 function localStorageManip() {
   var getLSQuantity = function() {
-    return localStorage.prizeQuantity;
+    return JSON.parse(localStorage.getItem("prizeQuantity"));
   }
 
   var setLSQuantity = function(prizeQuantity) {

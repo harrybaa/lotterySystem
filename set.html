@@ -8,10 +8,10 @@
   </head>
   <body>
     <ul>
-      <li><i class="prize-name" id="prize_name1"></i><input type="text" id="prize_q1" value=""></li>
-      <li><i class="prize-name" id="prize_name2"></i><input type="text" id="prize_q2" value=""></li>
-      <li><i class="prize-name" id="prize_name3"></i><input type="text" id="prize_q3" value=""></li>
-      <li><i class="prize-name" id="prize_name4"></i><input type="text" id="prize_q4" value=""></li>
+      <li><i class="prize-name" id="prize_name1">一等奖A</i><input type="text" id="prize_q1" value=""></li>
+      <li><i class="prize-name" id="prize_name2">一等奖B</i><input type="text" id="prize_q2" value=""></li>
+      <li><i class="prize-name" id="prize_name3">二等奖</i><input type="text" id="prize_q3" value=""></li>
+      <li><i class="prize-name" id="prize_name4">三等奖</i><input type="text" id="prize_q4" value=""></li>
     </ul>
 
     <input type="button" name="" value="submit" id="submit_btn">
@@ -21,18 +21,36 @@
       var LSMSYS = new localStorageManip();
 
       var showQuantity = function() {
-        var prizeQuantity;
-
-        prizeQuantity = getLocalStorage();
-
+        prizeQuantity = LSMSYS.getLSQuantity();
+        for(var i = 1; i <= 4; i++) {
+          $("#prize_q" + i).attr("value", prizeQuantity["prize" + i]);
+        }
       }
 
       var getLocalStorage = function() {
-        prizeQuantity = LSMSYS.
+        prizeQuantity = LSMSYS.getLSQuantity();
+      }
+
+      var setNewData = function() {
+        var quantity;
+        for(var i = 1; i <= 4; i++) {
+          quantity = $("#prize_q" + i).val();
+          if(isNaN(quantity)) {
+            alert("Plese input number.");
+            return;
+          }
+          prizeQuantity["prize" + i] = parseInt(quantity);
+        }
+        LSMSYS.setLSQuantity(prizeQuantity);
       }
 
       $(document).ready(function() {
         showQuantity();
+
+        $("#submit_btn").click(function() {
+          setNewData();
+          showQuantity(); // double check
+        });
       });
     </script>
   </body>
