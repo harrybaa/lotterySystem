@@ -15,29 +15,31 @@
 
     <!-- TITLE-->
     <div class="title-wrap">
-      <h1 class="title-txt">抽奖</h1>
+      <!--<img src="./src/logo.png" alt="抽奖logo">-->
+      <div class="title-text">
+        <p><b>花開有禮</b></p>
+      </div>
     </div>
 
     <!-- PLATE -->
     <div class="plate-wrap">
-      <div class="plate-box">
-        <div class="led-line">
-        </div>
-        <div class="prize-wrap">
-          <div class="prize-box" id="prize_box_1"></div>
-          <div class="prize-box" id="prize_box_2"></div>
-          <div class="prize-box" id="prize_box_3"></div>
-          <div class="prize-box" id="prize_box_4"></div>
-          <div class="prize-box" id="prize_box_5"></div>
-          <div class="prize-box" id="prize_box_6"></div>
-          <div class="prize-box" id="prize_box_7"></div>
-          <div class="prize-box" id="prize_box_8"></div>
-          <div class="prize-box" id="prize_box_9"></div>
+      <div class="prize-wrap">
+        <div class="prize-box" id="prize_box_1"></div>
+        <div class="prize-box" id="prize_box_2"></div>
+        <div class="prize-box" id="prize_box_3"></div>
+        <div class="prize-box" id="prize_box_4"></div>
+        <div class="prize-box" id="prize_box_5"></div>
+        <div class="prize-box" id="prize_box_6"></div>
+        <div class="prize-box" id="prize_box_7"></div>
+        <div class="prize-box" id="prize_box_8"></div>
+        <div class="prize-box" id="prize_box_9"></div>
+        <div class="clear-both"></div>
+      </div>
 
-          <div class="lot-botton" id="lot_btn"></div>
+      <div class="dec-wrap"></div>
 
-          <div class="clear-both"></div>
-        </div>
+      <div class="lot-botton" id="lot_btn">
+        <img src="./src/click.gif" alt="点击抽奖">
       </div>
     </div>
 
@@ -45,8 +47,8 @@
     <div class="footer">
       <div class="auth">
         <ul>
-          <li>奖品以实物为准</li>
-          <li>本活动最终解释权归沉静所有</li>
+          <li>图片仅供参考，奖品以实物为准。</li>
+          <li>本活动最终解释权归上海海烟广告有限公司所有。</li>
         </ul>
       </div>
 
@@ -63,23 +65,24 @@
     <!-- RESULT WINDOW -->
     <div class="result-wrap hide">
       <div class="result-box">
-        <div class="prize-rank" id="prize_rank_wrap">
-          <p id="prize_rank">NULL</p>
+        <div class="prize-header" id="prize_header_wrap">
+          <div class="prize-header-text">
+            恭喜你获得了
+          </div>
         </div>
-        <div class="img-wrap prize-pic-wrap">
-          <div class="sticker">
-
+        <div class="prize-rank-wrap">
+          <div class="prize-rank-text">
+            <p id="prize_rank">NULL</p>
           </div>
-          <div class="sticker">
-
+          <div class="prize-rank-sticker">
+            <img src="./src/sticker.png" alt="">
           </div>
-          <p class="prize-name" id="prize_name">null</p>
         </div>
         <div class="prize-slogo">
-          <p class="prize-tip">那時花開 幽藍歸來</p>
+          <b><p class="prize-tip">那時花開 幽藍歸來</p></b>
         </div>
         <div class="close-btn img-wrap" id="close_btn">
-          X
+          <img src="./src/close_btn.png" alt="close">
         </div>
       </div>
     </div>
