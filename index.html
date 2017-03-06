@@ -6,6 +6,7 @@
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/lottery.js"></script>
     <script type="text/javascript" src="js/blink.js"></script>
+    <script type="text/javascript" src="js/storageManip.js"></script>
     <title>Lottery System</title>
 
   </head>
@@ -62,15 +63,21 @@
     <!-- RESULT WINDOW -->
     <div class="result-wrap hide">
       <div class="result-box">
-        <h1 class="prize-rank" id="prize_rank">null</h1>
-        <div class="prize-rate" id="prize_rate">
-          <img src="" alt="">
+        <div class="prize-rank" id="prize_rank_wrap">
+          <p id="prize_rank">NULL</p>
         </div>
         <div class="img-wrap prize-pic-wrap">
-          <img id="prize_pic" src="" alt="">
+          <div class="sticker">
+
+          </div>
+          <div class="sticker">
+
+          </div>
+          <p class="prize-name" id="prize_name">null</p>
         </div>
-        <p class="prize-name" id="prize_name">null</p>
-        <p class="prize-tip">请向工作人员展示此页面并索要奖品。</p>
+        <div class="prize-slogo">
+          <p class="prize-tip">那時花開 幽藍歸來</p>
+        </div>
         <div class="close-btn img-wrap" id="close_btn">
           X
         </div>
@@ -81,15 +88,15 @@
 
       var LOTSYS = new Lottery();
       var BLKSYS = new Blink();
+      var LSMSYS = new localStorageManip();
+      var prizeQuantity;
       var prize;
 
       var showResult = function(prize) {
         console.log(prize);
         $(".result-wrap").removeClass("hide");
         $(".result-wrap #prize_rank").html(prize.rank);
-        $(".result-wrap #prize_rate img").attr("src", prize.rate_pic);
         $(".result-wrap #prize_name").html(prize.name);
-        $(".result-wrap #prize_pic").html(prize.pic);
         clearState();
       }
 
@@ -106,12 +113,12 @@
           url: url,
           dataType: 'json',
           success: function(res){
-            console.log('New Json data loaded.');
-            LOTSYS.setPrizeDetails(res.prizeDetails);
+            console.log('Detail data loaded.');
+            renderDetails(res);
           },
           error: function(){
-            console.log('Faild to load the data.');
-            LOTSYS.setFakePrizeDetails();
+            console.log('Faild to load detail data.');
+            setFakePrizeDetails();
           }
         });
       };
@@ -119,39 +126,43 @@
       var catchPrizeQuantityData = function(urlPrefix) {
         var url = urlPrefix + "prizeQuantity.json";
 
+        // already in local storage
+        if(localStorage.getItem("prizeQuantity") != null)
+          return;
+
         $.ajax({
           url: url,
           dataType: 'json',
           success: function(res){
-            console.log('New Json data loaded.');
-            LOTSYS.setPrizeQuantity(res.prizeQuantity);
+            console.log('Quantity data loaded.');
+            renderQuantity(res);
           },
           error: function(){
-            console.log('Faild to load the data.');
-            LOTSYS.setFakePrizeQuantity();
+            console.log('Faild to load quantity data.');
+            setFakePrizeQuantity();
           }
         });
       }
 
-      var setNewPrizeQuantityData = function(newQuantityData, urlPrefix) {
-        var url = urlPrefix + "prizeQuantity.json",
-            data;
+      var renderDetails = function(res) {
+        LOTSYS.setPrizeDetails(res.prizeDetails);
+      }
 
-        newQuantityData["_method"] = "PUT";
-        data = JSON.stringify(newQuantityData);
+      var renderQuantity = function(res) {
+        LOTSYS.setPrizeQuantity(res.prizeQuantity);
+        LSMSYS.setLSQuantity(res.prizeQuantity);
+      }
 
-        $.ajax({
-          url: url,
-          dataType: 'json',
-          data: data,
-          type: "PUT",
-          success: function(res){
-            console.log('New Json data put success.');
-          },
-          error: function(){
-            console.log('Faild to put data to server.');
-          }
-        });
+      var setFakePrizeDetails = function() {
+        LOTSYS.setFakePrizeDetails();
+      }
+
+      var setFakePrizeQuantity = function() {
+        LOTSYS.setFakePrizeQuantity();
+      }
+
+      var setNewPrizeQuantityData = function() {
+        LSMSYS.setLSQuantity(LOTSYS.getPrizeQuantity());
       }
 
       <!-- MAIN ENTRY -->
@@ -176,9 +187,9 @@
           $("#lot_btn").addClass("hide");
           BLKSYS.fastBlink();
           // try to catch newest data
-          catchPrizeQuantityData(urlPrefix);
+          LOTSYS.setPrizeQuantity(LSMSYS.getLSQuantity());
           prize = LOTSYS.lot();
-          setNewPrizeQuantityData(LOTSYS.prizeQuantity, urlPrefix);
+          setNewPrizeQuantityData();
 
           window.setTimeout(function(){showResult(prize)}, 1800);
         });

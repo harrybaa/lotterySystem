@@ -1,9 +1,9 @@
 function localStorageManip() {
-  var getLSQuantity = function() {
+  this.getLSQuantity = function() {
     return JSON.parse(localStorage.getItem("prizeQuantity"));
   }
 
-  var setLSQuantity = function(prizeQuantity) {
+  this.setLSQuantity = function(prizeQuantity) {
     localStorage.setItem("prizeQuantity", JSON.stringify(prizeQuantity));
   }
 }

@@ -3,44 +3,48 @@ function Lottery() {
   this.prizeQuantity = {};
   this.fakePrizeDetails = {
     "prize1": {
-      "name": "空调",
-      "rank": "特等奖",
-      "rate": "SSR",
-      "rate_pic": "#",
-      "pic": ""
+      "name": "牡丹（软蓝）竹语伞",
+      "rank": "壹等奖A",
     },
 		"prize2": {
-      "name": "冰箱",
-      "rank": "一等奖",
-      "rate": "SR",
-      "rate_pic": "#",
-      "pic": ""
+      "name": "牡丹品牌丝巾（大方巾）",
+      "rank": "壹等奖B",
     },
 		"prize3": {
-      "name": "洗衣机",
-      "rank": "二等奖",
-      "rate": "R",
-      "rate_pic": "#",
-      "pic": ""
+      "name": "牡丹（软蓝）鸡年记事本",
+      "rank": "貳等奖",
+    },
+		"prize4": {
+      "name": "牡丹（软蓝）打火机+牡丹（软蓝）烟盒",
+      "rank": "叁等奖",
+    },
+    "default": {
+      "name": "谢谢参与",
+      "rank": "安慰奖",
     }
   };
   this.fakePrizeQuatity = {
     "prize1": 1,
-    "prize2": 2,
-    "prize3": 3
+    "prize2": 1,
+    "prize3": 1,
+    "prize4": 1
   };
+  this.emptyPrize = {
+    "name": "奖池被掏空了~",
+    "rank": "对不起 您来晚了",
+  }
 
   this.init = function() {
     // initial;
   };
 
   this.setPrizeDetails = function(prizeDetails) {
-    this.prizeDetails = prizeDetails;
+    if(this.prizeDetails == null)
+      this.prizeDetails = prizeDetails;
   };
 
   this.setFakePrizeDetails = function() {
-    if(this.prizeDetails == null)
-      this.prizeDetails = this.fakePrizeDetails;
+    this.prizeDetails = this.fakePrizeDetails;
   };
 
   this.setPrizeQuantity = function(prizeQuantity) {
@@ -52,6 +56,10 @@ function Lottery() {
       this.prizeQuantity = this.fakePrizeQuatity;
   };
 
+  this.getPrizeQuantity = function() {
+    return this.prizeQuantity;
+  }
+
   this.lot = function() {
     var total,
         randomIdx,
@@ -61,7 +69,7 @@ function Lottery() {
 
     // no more prize
     if(total === 0) {
-      return "No more prize.";
+      return this.emptyPrize;
     }
 
     randomIdx = total * Math.random();
