@@ -18,16 +18,21 @@ function Lottery() {
       "name": "牡丹（软蓝）打火机+牡丹（软蓝）烟盒",
       "rank": "叁等奖",
     },
+		"prize5": {
+      "name": "纪念小礼品",
+      "rank": "参与奖",
+    },
     "default": {
       "name": "谢谢参与",
       "rank": "安慰奖",
     }
   };
   this.fakePrizeQuatity = {
-    "prize1": 1,
-    "prize2": 1,
-    "prize3": 1,
-    "prize4": 1
+    "prize1": 60,
+		"prize2": 60,
+		"prize3": 160,
+		"prize4": 260,
+    "prize5": 600
   };
   this.emptyPrize = {
     "name": "奖池被掏空了~",
