@@ -3,8 +3,10 @@ $select-orange: orange;
 $tmp-white: #F3F3F3;
 $border-color: #c4c2c2;
 $test-border: 1px solid $border-color;
-$theme-blue: #011e56;
+$theme-blue: #040d53;
+$theme-red: #cf0500;
 $theme-brown: #A29061;
+$theme-yellow: #ede6a3;
 $wenlu-path: url("../src/wenlu.png");
 
 body{
@@ -12,6 +14,7 @@ body{
   min-width: 1024px;
   min-height: 768px;
   display: block;
+  margin: 0px;
   background-color: $tmp-white;
   background-image: url("../src/bg.png");
   background-size: 100% 100%;
@@ -70,11 +73,12 @@ body{
       background-color: #fbf3e6;
       background-image: url("../src/boxSticker.png");
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: 10px 5px;
 
       &.light{
-        background-color: #ecbfc2;
+        background-color: $theme-red;
         background-image: url("../src/boxStickerLight.png");
+        background-position: 10px 5px;
       }
     }
 
@@ -114,6 +118,7 @@ body{
     margin: 128px auto;
     text-align: center;
     background-color: #fff;
+    box-shadow: 5px 5px 15px;
 
     .prize-header{
       margin: 0;
@@ -121,7 +126,7 @@ body{
       height: 170px;
       font-size: 46px;
       background: $theme-blue;
-      background-image: $wenlu-path;
+      // background-image: $wenlu-path; // deleted
       background-repeat: repeat;
 
       .prize-header-text{
@@ -148,7 +153,10 @@ body{
 
       .prize-rank-sticker{
         position: absolute;
-        margin: -130px 0 0 25px;
+        width: 170px;
+        height: 115px;
+        margin: -145px 0 0 25px;
+        background-image: url(../src/flowers.png);
       }
     }
 
@@ -163,15 +171,15 @@ body{
       height: 170px;
       font-size: 52px;
       background-color: $theme-blue;
-      background-image: $wenlu-path;
+      // background-image: $wenlu-path; // deleted
       background-repeat: repeat;
 
       .prize-tip{
         display: inline-block;
-        height: 60px;
-        margin: 50px auto;
-        color: $theme-brown;
-        text-shadow: 1px 1px 1px #000;
+        width: 326px;
+        height: 150px;
+        margin: 10px auto;
+        background-image: url(../src/resultFooter.png);
       }
     }
 
@@ -182,6 +190,31 @@ body{
       width: 30px;
       height: 30px;
     }
+  }
+
+  &.blue .prize-header{
+    background: $theme-blue;
+  }
+  &.red .prize-header{
+    background: $theme-red;
+  }
+  &.blue .prize-slogo{
+    background: $theme-blue;
+  }
+  &.red .prize-slogo{
+    background: $theme-red;
+  }
+  &.blue .prize-rank-sticker{
+    background-position: 0px 0px;
+  }
+  &.red .prize-rank-sticker{
+    background-position: -180px 0px;
+  }
+  &.blue .prize-tip{
+    background-position: 0px 0px;
+  }
+  &.red .prize-tip{
+    background: 0px 150px;
   }
 }
 

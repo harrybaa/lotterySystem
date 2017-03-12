@@ -4,27 +4,33 @@ function Lottery() {
   this.fakePrizeDetails = {
     "prize1": {
       "name": "牡丹（软蓝）竹语伞",
+			"theme": "blue",
       "rank": "壹等奖A",
     },
 		"prize2": {
       "name": "牡丹品牌丝巾（大方巾）",
+			"theme": "blue",
       "rank": "壹等奖B",
     },
 		"prize3": {
       "name": "牡丹（软蓝）鸡年记事本",
+			"theme": "blue",
       "rank": "貳等奖",
     },
 		"prize4": {
       "name": "牡丹（软蓝）打火机+牡丹（软蓝）烟盒",
+			"theme": "blue",
       "rank": "叁等奖",
     },
 		"prize5": {
       "name": "纪念小礼品",
+			"theme": "red",
       "rank": "参与奖",
     },
     "default": {
       "name": "谢谢参与",
-      "rank": "安慰奖",
+			"theme": "red",
+      "rank": "參與獎",
     }
   };
   this.fakePrizeQuatity = {

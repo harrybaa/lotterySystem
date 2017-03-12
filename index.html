@@ -75,11 +75,10 @@
             <p id="prize_rank">NULL</p>
           </div>
           <div class="prize-rank-sticker">
-            <img src="./src/sticker.png" alt="">
           </div>
         </div>
         <div class="prize-slogo">
-          <b><p class="prize-tip">那時花開 幽藍歸來</p></b>
+          <div class="prize-tip"></div>
         </div>
         <div class="close-btn img-wrap" id="close_btn">
           <img src="./src/close_btn.png" alt="close">
@@ -98,6 +97,7 @@
       var showResult = function(prize) {
         console.log(prize);
         $(".result-wrap").removeClass("hide");
+        $(".result-wrap").addClass(prize.theme);
         $(".result-wrap #prize_rank").html(prize.rank);
         $(".result-wrap #prize_name").html(prize.name);
         clearState();
@@ -199,6 +199,8 @@
 
         $("#close_btn").click(function() {
           $(".result-wrap").addClass("hide");
+          $(".result-wrap").removeClass("red");
+          $(".result-wrap").removeClass("blue");
         })
 
       });
