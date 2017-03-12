@@ -2,16 +2,18 @@ function Blink() {
   this.blinkIntervaler;
 
   this.startBlink = function() {
-    this.position = 1;
+    window.blinkPositon = 0;
+
     this.blinkIntervaler = window.setInterval(function() {
-      var idx, circle = [1, 2, 3, 6, 9, 8, 7, 4],
-
-      idx = circle[Math.floor(Math.random() * 8)];
-
+      var idx, circle = [1, 2, 3, 6, 9, 8, 7, 4];
+      // idx = circle[Math.floor(Math.random() * 8)];
+      idx = circle[window.blinkPositon];
       // enlight
       var name = "#prize_box_" + idx;
       $(name).addClass("light");
       $(name).siblings(".prize-box").removeClass("light");
+
+      window.blinkPositon = window.blinkPositon === 7 ? 0 : window.blinkPositon + 1;
 
     }, 1000);
   }
