@@ -29,6 +29,20 @@ function Blink() {
     }, 80);
   }
 
+  this.simpleBlink = function() {
+    window.blinkStatus = "white";
+
+    this.blinkIntervaler = window.setInterval(function(){
+
+      $(".prize-box").removeClass("white").removeClass("blue");
+      $(".prize-box").addClass(window.blinkStatus);
+
+      window.blinkStatus = window.blinkStatus == "white" ? "blue" : "white";
+    }, 100);
+  }
+
+
+
   this.clearBlink = function() {
     window.clearInterval(this.blinkIntervaler);
   }

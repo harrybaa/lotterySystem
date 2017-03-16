@@ -3,10 +3,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/loginStyle.css">
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/lottery.js"></script>
     <script type="text/javascript" src="js/blink.js"></script>
     <script type="text/javascript" src="js/storageManip.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
     <title>Lottery System</title>
 
   </head>
@@ -24,22 +26,14 @@
     <!-- PLATE -->
     <div class="plate-wrap">
       <div class="prize-wrap">
-        <div class="prize-box" id="prize_box_1"></div>
-        <div class="prize-box" id="prize_box_2"></div>
-        <div class="prize-box" id="prize_box_3"></div>
-        <div class="prize-box" id="prize_box_4"></div>
-        <div class="prize-box" id="prize_box_5"></div>
-        <div class="prize-box" id="prize_box_6"></div>
-        <div class="prize-box" id="prize_box_7"></div>
-        <div class="prize-box" id="prize_box_8"></div>
-        <div class="prize-box" id="prize_box_9"></div>
+        <div class="prize-box white" id="prize_box"></div>
         <div class="clear-both"></div>
       </div>
 
       <div class="dec-wrap"></div>
 
       <div class="lot-botton" id="lot_btn">
-        <img src="./src/click.gif" alt="点击抽奖">
+        <!--<img src="./src/click.gif" alt="点击抽奖">-->
       </div>
     </div>
 
@@ -86,11 +80,18 @@
       </div>
     </div>
 
+    <div class="login-warp">
+      <input type="password" class="login-passport-box" id="login_input" style="border: 1px solid" placeholder="LOGIN PASSPORT">
+      <input type="button" class="login-passport-btn" value="LOGIN" id="login_btn">
+      <p class="warning hide">Wrong Password</p>
+    </div>
+
     <script>
 
       var LOTSYS = new Lottery();
       var BLKSYS = new Blink();
       var LSMSYS = new localStorageManip();
+      var LOGSYS = new Login();
       var prizeQuantity;
       var prize;
 
@@ -104,9 +105,7 @@
       }
 
       var clearState = function() {
-        BLKSYS.clearBlink();
         $("#lot_btn").removeClass("hide");
-        BLKSYS.startBlink();
       }
 
       var catchPrizeDetailData = function(urlPrefix) {
@@ -171,10 +170,9 @@
       <!-- MAIN ENTRY -->
       $(document).ready(function() {
         var urlPrefix;
-        window.blinkPositon = 1;
 
         LOTSYS.init();
-        BLKSYS.startBlink();
+        BLKSYS.simpleBlink();
 
         // load data
         if(location.hostname == "localhost")
@@ -186,16 +184,23 @@
         catchPrizeQuantityData(urlPrefix);
 
         // register actions
+        $("#login_btn").click(function() {
+          if(LOGSYS.checkPassport($("#login_input").val())) {
+            $(".login-warp").addClass("hide");
+          } else {
+            $(".login-warp .warning").removeClass("hide");
+          }
+        });
+
         $("#lot_btn").click(function() {
-          BLKSYS.clearBlink();
           $("#lot_btn").addClass("hide");
-          BLKSYS.fastBlink();
+
           // try to catch newest data
           LOTSYS.setPrizeQuantity(LSMSYS.getLSQuantity());
           prize = LOTSYS.lot();
           setNewPrizeQuantityData();
 
-          window.setTimeout(function(){showResult(prize)}, 1800);
+          window.setTimeout(function(){showResult(prize)}, 1000);
         });
 
         $("#close_btn").click(function() {
