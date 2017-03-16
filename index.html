@@ -24,22 +24,14 @@
     <!-- PLATE -->
     <div class="plate-wrap">
       <div class="prize-wrap">
-        <div class="prize-box" id="prize_box_1"></div>
-        <div class="prize-box" id="prize_box_2"></div>
-        <div class="prize-box" id="prize_box_3"></div>
-        <div class="prize-box" id="prize_box_4"></div>
-        <div class="prize-box" id="prize_box_5"></div>
-        <div class="prize-box" id="prize_box_6"></div>
-        <div class="prize-box" id="prize_box_7"></div>
-        <div class="prize-box" id="prize_box_8"></div>
-        <div class="prize-box" id="prize_box_9"></div>
+        <div class="prize-box white" id="prize_box"></div>
         <div class="clear-both"></div>
       </div>
 
       <div class="dec-wrap"></div>
 
       <div class="lot-botton" id="lot_btn">
-        <img src="./src/click.gif" alt="点击抽奖">
+        <!--<img src="./src/click.gif" alt="点击抽奖">-->
       </div>
     </div>
 
@@ -104,9 +96,7 @@
       }
 
       var clearState = function() {
-        BLKSYS.clearBlink();
         $("#lot_btn").removeClass("hide");
-        BLKSYS.startBlink();
       }
 
       var catchPrizeDetailData = function(urlPrefix) {
@@ -171,10 +161,9 @@
       <!-- MAIN ENTRY -->
       $(document).ready(function() {
         var urlPrefix;
-        window.blinkPositon = 1;
 
         LOTSYS.init();
-        BLKSYS.startBlink();
+        BLKSYS.simpleBlink();
 
         // load data
         if(location.hostname == "localhost")
@@ -187,9 +176,8 @@
 
         // register actions
         $("#lot_btn").click(function() {
-          BLKSYS.clearBlink();
           $("#lot_btn").addClass("hide");
-          BLKSYS.fastBlink();
+
           // try to catch newest data
           LOTSYS.setPrizeQuantity(LSMSYS.getLSQuantity());
           prize = LOTSYS.lot();

@@ -68,15 +68,18 @@ body{
     .prize-box{
       float: left;
       margin: 0 5px 5px 0;
-      width: 208px;
-      height: 140px;
-      background-color: #fbf3e6;
-      background-image: url("../src/boxSticker.png");
+      width: 640px;
+      height: 430px;
       background-repeat: no-repeat;
       background-position: 10px 5px;
+      background-size: cover;
 
-      &.light{
-        background-color: $theme-red;
+      &.white{
+        background-color: #fbf3e6;
+        background-image: url("../src/boxSticker.png");
+      }
+      &.blue{
+        background-color: $theme-blue;
         background-image: url("../src/boxStickerLight.png");
         background-position: 10px 5px;
       }
@@ -90,16 +93,18 @@ body{
     width: 680px;
     height: 471px;
     margin-top: -471px;
-    background-image: url("../src/plate.png");
+    // background-image: url("../src/plate.png");
     background-size: 100% 100%;
   }
 
   .lot-botton{
     position: absolute;
-    width: 208px;
-    height: 140px;
-    margin-left: 233px;
-    margin-top: -306px;
+    width: 640px;
+    height: 430px;
+    margin-left: 20px;
+    margin-top: -450px;
+    background-image: url("../src/btn.png");
+    background-size: cover;
   }
 }
 
