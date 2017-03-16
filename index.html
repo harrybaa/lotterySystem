@@ -3,10 +3,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/loginStyle.css">
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/lottery.js"></script>
     <script type="text/javascript" src="js/blink.js"></script>
     <script type="text/javascript" src="js/storageManip.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
     <title>Lottery System</title>
 
   </head>
@@ -78,11 +80,18 @@
       </div>
     </div>
 
+    <div class="login-warp">
+      <input type="password" class="login-passport-box" id="login_input" style="border: 1px solid" placeholder="LOGIN PASSPORT">
+      <input type="button" class="login-passport-btn" value="LOGIN" id="login_btn">
+      <p class="warning hide">Wrong Password</p>
+    </div>
+
     <script>
 
       var LOTSYS = new Lottery();
       var BLKSYS = new Blink();
       var LSMSYS = new localStorageManip();
+      var LOGSYS = new Login();
       var prizeQuantity;
       var prize;
 
@@ -175,6 +184,14 @@
         catchPrizeQuantityData(urlPrefix);
 
         // register actions
+        $("#login_btn").click(function() {
+          if(LOGSYS.checkPassport($("#login_input").val())) {
+            $(".login-warp").addClass("hide");
+          } else {
+            $(".login-warp .warning").removeClass("hide");
+          }
+        });
+
         $("#lot_btn").click(function() {
           $("#lot_btn").addClass("hide");
 
@@ -183,7 +200,7 @@
           prize = LOTSYS.lot();
           setNewPrizeQuantityData();
 
-          window.setTimeout(function(){showResult(prize)}, 1800);
+          window.setTimeout(function(){showResult(prize)}, 1000);
         });
 
         $("#close_btn").click(function() {
