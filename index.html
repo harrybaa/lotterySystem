@@ -126,10 +126,11 @@
       };
 
       var catchPrizeQuantityData = function(urlPrefix) {
-        var url = urlPrefix + "prizeQuantity0309.json";
+        var url = urlPrefix + "prizeQuantity0309.json",
+            date = new Date();
 
         // already in local storage
-        if(localStorage.getItem("prizeQuantity") != null)
+        if(localStorage.getItem("prizeDate") != null && localStorage.getItem("prizeDate") == date.getDate())
           return;
 
         $.ajax({
@@ -144,6 +145,9 @@
             setFakePrizeQuantity();
           }
         });
+
+        // update date
+        localStorage.setItem("prizeDate", date.getDate());
       }
 
       var renderDetails = function(res) {
