@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style/loginStyle.css">
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/storageManip.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/login0316.js"></script>
     <title>SETTING</title>
 
     <style media="screen">
@@ -21,10 +21,11 @@
       <li><i class="prize-name" id="prize_name2">一等奖B:</i> <input type="text" id="prize_q2" style="border: 1px solid" value=""></li>
       <li><i class="prize-name" id="prize_name3">二等奖:</i> <input type="text" id="prize_q3" style="border: 1px solid" value=""></li>
       <li><i class="prize-name" id="prize_name4">三等奖:</i> <input type="text" id="prize_q4" style="border: 1px solid" value=""></li>
+      <li><i class="prize-name" id="prize_name5">参与奖:</i> <input type="text" id="prize_q5" style="border: 1px solid" value=""></li>
     </ul>
 
     <input type="button" style="border: 1px solid" value="提交更新" id="submit_btn">
-    <p class="update tip hide">Updated.</p>
+    <p class="update tip hide">已更新。请返回主页面并刷新。</p>
 
     <div class="login-warp hide">
       <input type="password" class="login-passport-box" id="login_input" style="border: 1px solid" placeholder="LOGIN PASSPORT">
@@ -39,14 +40,14 @@
 
       var showQuantity = function() {
         this.prizeQuantity = LSMSYS.getLSQuantity();
-        for(var i = 1; i <= 4; i++) {
+        for(var i = 1; i <= 5; i++) {
           $("#prize_q" + i).attr("value", this.prizeQuantity["prize" + i]);
         }
       }
 
       var setNewData = function() {
         var quantity;
-        for(var i = 1; i <= 4; i++) {
+        for(var i = 1; i <= 5; i++) {
           quantity = $("#prize_q" + i).val();
           if(isNaN(quantity)) {
             alert("Plese input number.");
