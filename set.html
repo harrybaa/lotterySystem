@@ -3,9 +3,17 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/loginStyle.css">
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/storageManip.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
     <title>SETTING</title>
+
+    <style media="screen">
+      .hide{
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <ul>
@@ -16,10 +24,18 @@
     </ul>
 
     <input type="button" style="border: 1px solid" value="提交更新" id="submit_btn">
+    <p class="update tip hide">Updated.</p>
+
+    <div class="login-warp hide">
+      <input type="password" class="login-passport-box" id="login_input" style="border: 1px solid" placeholder="LOGIN PASSPORT">
+      <input type="button" class="login-passport-btn" value="LOGIN" id="login_btn">
+      <p class="warning hide">Wrong Password</p>
+    </div>
 
     <script type="text/javascript">
       this.prizeQuantity = {};
       var LSMSYS = new localStorageManip();
+      var LOGSYS = new Login();
 
       var showQuantity = function() {
         this.prizeQuantity = LSMSYS.getLSQuantity();
@@ -45,8 +61,19 @@
         showQuantity();
 
         $("#submit_btn").click(function() {
-          setNewData();
-          showQuantity(); // double check
+          $(".login-warp").removeClass("hide");
+        });
+
+        $("#login_btn").click(function() {
+          if(LOGSYS.checkPassport($("#login_input").val())) {
+            $(".login-warp").addClass("hide");
+            $("#login_input").val("");
+            setNewData();
+            showQuantity(); // double check
+            $(".update.tip").removeClass("hide");
+          } else {
+            $(".login-warp .warning").removeClass("hide");
+          }
         });
       });
     </script>
